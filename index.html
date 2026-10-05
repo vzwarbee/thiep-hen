@@ -1,0 +1,1267 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5e9db" />
+    <title>Hẹn Việt Hà một buổi tối ở Đà Nẵng</title>
+    <style>
+      :root {
+        --paper: #fffaf3;
+        --paper-deep: #f5e9db;
+        --ink: #342521;
+        --muted: #846e65;
+        --wine: #8c3043;
+        --wine-dark: #6f2133;
+        --blush: #e8a5a5;
+        --gold: #b78a4a;
+        --line: rgba(140, 48, 67, 0.2);
+        --shadow: 0 24px 70px rgba(83, 48, 38, 0.17);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        min-height: 100%;
+      }
+
+      html {
+        overflow-x: clip;
+      }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        min-height: 100svh;
+        overflow: hidden;
+        color: var(--ink);
+        background:
+          radial-gradient(
+            circle at 12% 16%,
+            rgba(255, 255, 255, 0.9) 0 4%,
+            transparent 17%
+          ),
+          radial-gradient(
+            circle at 88% 82%,
+            rgba(229, 156, 157, 0.2) 0 5%,
+            transparent 22%
+          ),
+          var(--paper-deep);
+        font-family: Georgia, "Times New Roman", serif;
+      }
+
+      body::before {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        content: "";
+        opacity: 0.25;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.13'/%3E%3C/svg%3E");
+        mix-blend-mode: multiply;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .intro {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        display: grid;
+        overflow: hidden;
+        place-items: center;
+        padding: 24px;
+        background:
+          radial-gradient(
+            circle at 22% 20%,
+            rgba(255, 255, 255, 0.9) 0 3%,
+            transparent 18%
+          ),
+          radial-gradient(
+            circle at 78% 82%,
+            rgba(236, 158, 167, 0.24) 0 5%,
+            transparent 24%
+          ),
+          #fff1ee;
+        transition:
+          opacity 0.65s ease,
+          visibility 0s linear 0.7s,
+          transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .intro::before,
+      .intro::after {
+        position: absolute;
+        color: rgba(140, 48, 67, 0.22);
+        font-family: "Apple Chancery", "Segoe Print", cursive;
+        font-size: clamp(1.3rem, 3vw, 2rem);
+        transform: rotate(-8deg);
+        content: "love you";
+      }
+
+      .intro::before {
+        top: 9%;
+        left: 7%;
+      }
+
+      .intro::after {
+        right: 7%;
+        bottom: 9%;
+        transform: rotate(7deg);
+        content: "for Việt Hà ♡";
+      }
+
+      .intro__content {
+        position: relative;
+        z-index: 2;
+        width: min(100%, 520px);
+        text-align: center;
+      }
+
+      .intro__title {
+        margin: 0 0 36px;
+        color: var(--ink);
+        font-family: "Apple Chancery", "Segoe Print", cursive;
+        font-size: clamp(2rem, 7vw, 3.5rem);
+        line-height: 1.2;
+      }
+
+      .heart-stage {
+        position: relative;
+        display: grid;
+        place-items: center;
+      }
+
+      .heartbeat-line {
+        position: absolute;
+        z-index: 1;
+        top: 50%;
+        left: 50%;
+        width: 100vw;
+        height: 94px;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+      }
+
+      .heartbeat-line svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+      }
+
+      .heartbeat-line path {
+        fill: none;
+        stroke: var(--wine);
+        stroke-dasharray: 1500;
+        stroke-dashoffset: 1500;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2;
+        vector-effect: non-scaling-stroke;
+        animation: heartbeat-draw 1.8s ease-in-out infinite;
+      }
+
+      .heart-trigger {
+        position: relative;
+        display: grid;
+        width: 132px;
+        height: 132px;
+        margin: 0 auto;
+        padding: 0;
+        color: #fffaf3;
+        background: transparent;
+        border: 0;
+        border-radius: 50%;
+        cursor: pointer;
+        place-items: center;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .heart-trigger:focus-visible {
+        outline: 3px solid rgba(140, 48, 67, 0.42);
+        outline-offset: 12px;
+      }
+
+      .heart-trigger__core {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        width: 104px;
+        height: 104px;
+        background: var(--wine);
+        border: 5px solid rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        box-shadow: 0 12px 30px rgba(111, 33, 51, 0.26);
+        place-items: center;
+        animation: heartbeat 1.8s ease-in-out infinite;
+      }
+
+      .heart-trigger__core::before,
+      .heart-trigger__core::after {
+        position: absolute;
+        inset: -8px;
+        content: "";
+        border: 2px solid rgba(140, 48, 67, 0.42);
+        border-radius: 50%;
+        opacity: 0;
+        animation: heartbeat-ring 1.8s ease-out infinite;
+      }
+
+      .heart-trigger__core::after {
+        animation-delay: 0.16s;
+      }
+
+      .heart-trigger svg {
+        width: 42px;
+        height: 42px;
+        fill: currentColor;
+        filter: drop-shadow(0 2px 2px rgba(70, 20, 30, 0.18));
+      }
+
+      .heart-trigger:hover .heart-trigger__core {
+        background: var(--wine-dark);
+      }
+
+      body.letter-open .intro {
+        visibility: hidden;
+        pointer-events: none;
+        opacity: 0;
+        transform: scale(1.06);
+      }
+
+      .page {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        min-height: 100svh;
+        place-items: center;
+        padding: 28px 20px;
+        opacity: 0;
+        transform: translateY(24px) scale(0.985);
+        transition:
+          opacity 0.65s ease 0.25s,
+          transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s;
+      }
+
+      body.letter-open .page {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      .flower {
+        position: fixed;
+        width: clamp(130px, 18vw, 230px);
+        color: var(--wine);
+        opacity: 0.42;
+        pointer-events: none;
+      }
+
+      .flower--left {
+        left: -32px;
+        bottom: -20px;
+        transform: rotate(-8deg);
+      }
+
+      .flower--right {
+        top: -28px;
+        right: -34px;
+        transform: rotate(172deg);
+      }
+
+      .invitation {
+        position: relative;
+        width: 100%;
+        max-width: 650px;
+        min-width: 0;
+        min-height: 610px;
+        padding: clamp(34px, 6vw, 58px) clamp(24px, 7vw, 70px) 34px;
+        overflow: hidden;
+        text-align: center;
+        background: var(--paper);
+        border: 1px solid rgba(183, 138, 74, 0.32);
+        box-shadow: var(--shadow);
+        transition:
+          background-color 0.8s ease,
+          transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      .invitation::before,
+      .invitation::after {
+        position: absolute;
+        width: 54px;
+        height: 54px;
+        content: "";
+        border-color: var(--gold);
+        opacity: 0.55;
+      }
+
+      .invitation::before {
+        top: 14px;
+        left: 14px;
+        border-top: 1px solid;
+        border-left: 1px solid;
+      }
+
+      .invitation::after {
+        right: 14px;
+        bottom: 14px;
+        border-right: 1px solid;
+        border-bottom: 1px solid;
+      }
+
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin: 0 0 22px;
+        color: var(--wine);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before,
+      .eyebrow::after {
+        width: 34px;
+        height: 1px;
+        content: "";
+        background: var(--line);
+      }
+
+      h1 {
+        max-width: 500px;
+        margin: 0 auto 20px;
+        font-size: clamp(2rem, 6vw, 3.8rem);
+        font-weight: 400;
+        line-height: 1.04;
+        letter-spacing: -0.045em;
+      }
+
+      h1 em {
+        color: var(--wine);
+        font-weight: 400;
+      }
+
+      .letter {
+        max-width: 470px;
+        margin: 0 auto;
+        color: #604c45;
+        font-size: clamp(1rem, 2.7vw, 1.16rem);
+        line-height: 1.75;
+      }
+
+      .date {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin-top: 22px;
+        padding: 8px 13px;
+        color: var(--wine-dark);
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .heart {
+        color: var(--wine);
+        font-size: 0.85rem;
+      }
+
+      .question {
+        margin: 25px 0 0;
+        color: var(--ink);
+        font-size: 1.08rem;
+        font-style: italic;
+      }
+
+      .actions {
+        position: relative;
+        height: 145px;
+        margin-top: 12px;
+      }
+
+      .choice {
+        position: absolute;
+        border: 0;
+        cursor: pointer;
+        transition:
+          left 0.24s cubic-bezier(0.2, 0.85, 0.3, 1),
+          top 0.24s cubic-bezier(0.2, 0.85, 0.3, 1),
+          transform 0.24s ease,
+          box-shadow 0.2s ease,
+          background-color 0.2s ease;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .choice:focus-visible {
+        outline: 3px solid rgba(183, 138, 74, 0.65);
+        outline-offset: 4px;
+      }
+
+      .choice--no {
+        z-index: 2;
+        top: 48px;
+        left: 50%;
+        width: 190px;
+        min-height: 58px;
+        padding: 13px 18px;
+        color: var(--paper);
+        background: var(--wine);
+        border-radius: 2px;
+        box-shadow: 0 10px 22px rgba(111, 33, 51, 0.2);
+        font-weight: 700;
+        transform: translateX(-50%) scale(var(--no-scale, 1));
+      }
+
+      .choice--no:hover {
+        background: var(--wine-dark);
+      }
+
+      .choice--yes {
+        z-index: 1;
+        top: 58px;
+        right: 4%;
+        padding: 10px 14px;
+        color: var(--wine-dark);
+        background: transparent;
+        border: 1px solid rgba(140, 48, 67, 0.35);
+        border-radius: 999px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 0.78rem;
+        font-weight: 700;
+      }
+
+      .choice--yes:hover {
+        color: var(--paper);
+        background: var(--wine);
+      }
+
+      .hint {
+        margin: -4px 0 0;
+        color: var(--muted);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 0.69rem;
+        letter-spacing: 0.04em;
+      }
+
+      .success {
+        position: absolute;
+        inset: 0;
+        z-index: 5;
+        display: grid;
+        place-items: center;
+        padding: clamp(36px, 7vw, 70px);
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(24px) scale(0.97);
+        transition:
+          opacity 0.55s ease 0.25s,
+          transform 0.7s cubic-bezier(0.2, 0.85, 0.3, 1) 0.2s,
+          visibility 0s linear 0.8s;
+      }
+
+      .success__seal {
+        display: grid;
+        width: 74px;
+        height: 74px;
+        margin: 0 auto 26px;
+        color: var(--paper);
+        background: var(--wine);
+        border: 4px double rgba(255, 250, 243, 0.82);
+        border-radius: 50%;
+        box-shadow: 0 8px 24px rgba(111, 33, 51, 0.24);
+        place-items: center;
+        font-size: 1.7rem;
+        transform: rotate(-8deg);
+      }
+
+      .success h2 {
+        margin: 0 0 20px;
+        color: var(--wine-dark);
+        font-size: clamp(2.1rem, 7vw, 4.1rem);
+        font-weight: 400;
+        line-height: 1.02;
+        letter-spacing: -0.04em;
+      }
+
+      .success p {
+        max-width: 430px;
+        margin: 0 auto;
+        color: #604c45;
+        font-size: clamp(1rem, 3vw, 1.2rem);
+        line-height: 1.75;
+      }
+
+      .success__sign {
+        margin-top: 28px !important;
+        color: var(--wine) !important;
+        font-size: 0.95rem !important;
+        font-style: italic;
+      }
+
+      .invitation__front {
+        transition:
+          opacity 0.4s ease,
+          transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .invitation.is-accepted {
+        background: #fff6ed;
+      }
+
+      .invitation.is-accepted .invitation__front {
+        pointer-events: none;
+        opacity: 0;
+        transform: none;
+      }
+
+      .invitation.is-accepted .success {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        transition-delay: 0s;
+      }
+
+      .celebration {
+        position: fixed;
+        inset: 0;
+        z-index: 30;
+        overflow: hidden;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      body.is-celebrating .celebration {
+        visibility: visible;
+      }
+
+      .celebration__particle {
+        --particle-color: var(--wine);
+        --particle-delay: 0s;
+        --particle-end-x: 86vw;
+        --particle-y: -68vh;
+        position: absolute;
+        bottom: -18px;
+        width: 9px;
+        height: 14px;
+        backface-visibility: hidden;
+        will-change: transform, opacity;
+      }
+
+      .celebration__particle > span {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: var(--particle-color);
+        border-radius: 2px;
+        opacity: 0;
+        backface-visibility: hidden;
+        will-change: transform, opacity;
+      }
+
+      .celebration__particle--left {
+        left: -12px;
+      }
+      .celebration__particle--right {
+        right: -12px;
+      }
+
+      body.is-celebrating .celebration__particle--left {
+        animation: particle-drift-right 2.4s linear var(--particle-delay)
+          forwards;
+      }
+
+      body.is-celebrating .celebration__particle--right {
+        animation: particle-drift-left 2.4s linear var(--particle-delay)
+          forwards;
+      }
+
+      body.is-celebrating .celebration__particle > span {
+        animation:
+          particle-vertical 2.4s var(--particle-delay) forwards,
+          particle-fade 2.4s linear var(--particle-delay) forwards;
+      }
+
+      .celebration__particle:nth-child(1),
+      .celebration__particle:nth-child(9) {
+        --particle-end-x: 52vw;
+        --particle-y: -55vh;
+        --particle-color: #d26f82;
+        --particle-delay: 0.02s;
+      }
+      .celebration__particle:nth-child(2),
+      .celebration__particle:nth-child(10) {
+        --particle-end-x: 75vw;
+        --particle-y: -72vh;
+        --particle-color: #e6ad59;
+        --particle-delay: 0.08s;
+      }
+      .celebration__particle:nth-child(3),
+      .celebration__particle:nth-child(11) {
+        --particle-end-x: 92vw;
+        --particle-y: -61vh;
+        --particle-color: #a9475d;
+        --particle-delay: 0.14s;
+      }
+      .celebration__particle:nth-child(4),
+      .celebration__particle:nth-child(12) {
+        --particle-end-x: 64vw;
+        --particle-y: -82vh;
+        --particle-color: #efaaa9;
+        --particle-delay: 0.05s;
+      }
+      .celebration__particle:nth-child(5),
+      .celebration__particle:nth-child(13) {
+        --particle-end-x: 108vw;
+        --particle-y: -76vh;
+        --particle-color: #c19acb;
+        --particle-delay: 0.18s;
+      }
+      .celebration__particle:nth-child(6),
+      .celebration__particle:nth-child(14) {
+        --particle-end-x: 42vw;
+        --particle-y: -68vh;
+        --particle-color: #b78a4a;
+        --particle-delay: 0.1s;
+      }
+      .celebration__particle:nth-child(7),
+      .celebration__particle:nth-child(15) {
+        --particle-end-x: 85vw;
+        --particle-y: -91vh;
+        --particle-color: #e68ea0;
+        --particle-delay: 0.22s;
+      }
+      .celebration__particle:nth-child(8),
+      .celebration__particle:nth-child(16) {
+        --particle-end-x: 119vw;
+        --particle-y: -58vh;
+        --particle-color: #8c3043;
+        --particle-delay: 0.26s;
+      }
+
+      .celebration__balloon {
+        --balloon-color: rgba(210, 111, 130, 0.78);
+        --balloon-left: 50%;
+        --balloon-size: 54px;
+        --balloon-delay: 0s;
+        --balloon-duration: 5.2s;
+        position: absolute;
+        bottom: -150px;
+        left: var(--balloon-left);
+        width: var(--balloon-size);
+        height: calc(var(--balloon-size) * 1.18);
+        opacity: 0;
+        backface-visibility: hidden;
+        will-change: transform, opacity;
+      }
+
+      .celebration__balloon > span {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 100%;
+        background:
+          radial-gradient(
+            circle at 30% 24%,
+            rgba(255, 255, 255, 0.8) 0 7%,
+            transparent 8%
+          ),
+          var(--balloon-color);
+        border: 1px solid rgba(111, 33, 51, 0.22);
+        border-radius: 50% 50% 48% 48% / 44% 44% 56% 56%;
+        box-shadow:
+          inset 8px 7px 13px rgba(255, 255, 255, 0.22),
+          0 8px 18px rgba(111, 33, 51, 0.12);
+        backface-visibility: hidden;
+        will-change: transform;
+      }
+
+      .celebration__balloon > span::before {
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        width: 0;
+        height: 0;
+        content: "";
+        border-right: 6px solid transparent;
+        border-bottom: 0;
+        border-left: 6px solid transparent;
+        border-top: 10px solid var(--balloon-color);
+        transform: translateX(-50%);
+      }
+
+      .celebration__balloon > span::after {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 50%;
+        width: 1px;
+        height: 72px;
+        content: "";
+        background: rgba(111, 33, 51, 0.38);
+        transform: translateX(-50%);
+      }
+
+      body.is-celebrating .celebration__balloon {
+        animation:
+          balloon-rise var(--balloon-duration) linear var(--balloon-delay)
+            forwards,
+          balloon-fade var(--balloon-duration) linear var(--balloon-delay)
+            forwards;
+      }
+
+      body.is-celebrating .celebration__balloon > span {
+        animation: balloon-sway 2.25s ease-in-out var(--balloon-delay) infinite
+          alternate;
+      }
+
+      .celebration__balloon:nth-of-type(1) {
+        --balloon-left: 8%;
+        --balloon-size: 44px;
+        --balloon-color: rgba(222, 118, 139, 0.78);
+        --balloon-delay: 0.25s;
+      }
+      .celebration__balloon:nth-of-type(2) {
+        --balloon-left: 24%;
+        --balloon-size: 58px;
+        --balloon-color: rgba(225, 169, 78, 0.76);
+        --balloon-delay: 0.7s;
+        --balloon-duration: 5.8s;
+      }
+      .celebration__balloon:nth-of-type(3) {
+        --balloon-left: 43%;
+        --balloon-size: 38px;
+        --balloon-color: rgba(178, 142, 199, 0.78);
+        --balloon-delay: 0.42s;
+        --balloon-duration: 4.8s;
+      }
+      .celebration__balloon:nth-of-type(4) {
+        --balloon-left: 61%;
+        --balloon-size: 52px;
+        --balloon-color: rgba(232, 145, 129, 0.78);
+        --balloon-delay: 0.9s;
+        --balloon-duration: 5.6s;
+      }
+      .celebration__balloon:nth-of-type(5) {
+        --balloon-left: 78%;
+        --balloon-size: 46px;
+        --balloon-color: rgba(166, 65, 88, 0.74);
+        --balloon-delay: 0.55s;
+      }
+      .celebration__balloon:nth-of-type(6) {
+        --balloon-left: 91%;
+        --balloon-size: 34px;
+        --balloon-color: rgba(232, 169, 177, 0.82);
+        --balloon-delay: 1.05s;
+        --balloon-duration: 4.7s;
+      }
+
+      @keyframes heartbeat {
+        0%,
+        38%,
+        100% {
+          transform: scale(1);
+        }
+        8% {
+          transform: scale(1.13);
+        }
+        16% {
+          transform: scale(0.98);
+        }
+        25% {
+          transform: scale(1.07);
+        }
+      }
+
+      @keyframes heartbeat-ring {
+        0% {
+          opacity: 0.55;
+          transform: scale(0.88);
+        }
+        48%,
+        100% {
+          opacity: 0;
+          transform: scale(1.65);
+        }
+      }
+
+      @keyframes heartbeat-draw {
+        0% {
+          opacity: 0;
+          stroke-dashoffset: 1500;
+        }
+        6% {
+          opacity: 0.85;
+        }
+        36% {
+          opacity: 0.75;
+          stroke-dashoffset: 0;
+        }
+        58% {
+          opacity: 0.55;
+          stroke-dashoffset: 0;
+        }
+        100% {
+          opacity: 0;
+          stroke-dashoffset: -1500;
+        }
+      }
+
+      @keyframes particle-drift-right {
+        to {
+          transform: translate3d(var(--particle-end-x), 0, 0);
+        }
+      }
+
+      @keyframes particle-drift-left {
+        to {
+          transform: translate3d(calc(0px - var(--particle-end-x)), 0, 0);
+        }
+      }
+
+      @keyframes particle-vertical {
+        0% {
+          transform: translate3d(0, 0, 0) rotate(0);
+          animation-timing-function: cubic-bezier(0.12, 0.68, 0.3, 1);
+        }
+        52% {
+          transform: translate3d(0, var(--particle-y), 0) rotate(330deg);
+          animation-timing-function: cubic-bezier(0.5, 0, 0.88, 0.38);
+        }
+        100% {
+          transform: translate3d(0, -10vh, 0) rotate(680deg);
+        }
+      }
+
+      @keyframes particle-fade {
+        0% {
+          opacity: 0;
+        }
+        8%,
+        66% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes balloon-rise {
+        from {
+          transform: translate3d(-50%, 0, 0);
+        }
+        to {
+          transform: translate3d(-50%, -118vh, 0);
+        }
+      }
+
+      @keyframes balloon-sway {
+        from {
+          transform: translate3d(-10px, 0, 0) rotate(-2.5deg);
+        }
+        to {
+          transform: translate3d(10px, 0, 0) rotate(2.5deg);
+        }
+      }
+
+      @keyframes balloon-fade {
+        0% {
+          opacity: 0;
+        }
+        10%,
+        78% {
+          opacity: 0.95;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .page {
+          padding: 14px;
+        }
+
+        .invitation {
+          min-height: min(680px, calc(100svh - 28px));
+          padding-top: 40px;
+        }
+
+        .letter {
+          line-height: 1.6;
+        }
+
+        .actions {
+          height: 170px;
+        }
+
+        .choice--no {
+          top: 56px;
+          width: 178px;
+        }
+
+        .choice--yes {
+          top: 125px;
+          right: 3%;
+        }
+
+        .flower {
+          opacity: 0.28;
+        }
+
+        .intro::before {
+          top: 6%;
+          left: 5%;
+        }
+
+        .intro::after {
+          right: 5%;
+          bottom: 6%;
+        }
+
+        .intro__title {
+          margin-bottom: 30px;
+        }
+      }
+
+      @media (max-height: 700px) {
+        body {
+          overflow: auto;
+        }
+
+        .invitation {
+          min-height: 620px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="intro" id="intro" aria-label="Mở lời nhắn dành cho Việt Hà">
+      <div class="intro__content">
+        <p class="intro__title">Có một lời nhắn cho Hà nè</p>
+        <div class="heart-stage">
+          <div class="heartbeat-line" aria-hidden="true">
+            <svg viewBox="0 0 1000 100" preserveAspectRatio="none">
+              <path
+                d="M0 50h145l18-1 13-23 16 52 22-68 22 78 17-38h150l12-1 10-15 12 32 17-44 17 52 13-24h166l17-1 13-23 16 52 22-68 22 78 17-38h147"
+              />
+            </svg>
+          </div>
+          <button
+            class="heart-trigger"
+            id="open-letter"
+            type="button"
+            aria-label="Mở thư tình dành cho Việt Hà"
+          >
+            <span class="heart-trigger__core" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 21s-7.4-4.35-9.55-8.7C.7 8.75 2.4 4.5 6.35 4.05 8.6 3.8 10.5 5 12 6.8c1.5-1.8 3.4-3 5.65-2.75 3.95.45 5.65 4.7 3.9 8.25C19.4 16.65 12 21 12 21Z"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <main class="page" id="letter-page" aria-hidden="true" inert>
+      <svg class="flower flower--left" viewBox="0 0 220 280" aria-hidden="true">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.6"
+        >
+          <path d="M28 275C79 218 95 149 103 57" />
+          <path d="M68 222c-27-18-43-7-43-7 6 25 25 29 43 7Z" />
+          <path d="M91 165c31-23 51-12 51-12-8 28-32 33-51 12Z" />
+          <path d="M99 111C72 91 55 102 55 102c8 25 28 28 44 9Z" />
+          <path d="M104 60c-21-17-19-38-19-38 24 1 33 18 19 38Z" />
+          <path d="M106 58c21-19 42-12 42-12-4 23-20 30-42 12Z" />
+          <path d="M45 252c34-15 53 0 53 0-14 26-37 26-53 0Z" />
+          <path d="M123 142c25-6 38 8 38 8-13 17-29 15-38-8Z" />
+        </g>
+      </svg>
+
+      <svg
+        class="flower flower--right"
+        viewBox="0 0 220 280"
+        aria-hidden="true"
+      >
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.6"
+        >
+          <path d="M28 275C79 218 95 149 103 57" />
+          <path d="M68 222c-27-18-43-7-43-7 6 25 25 29 43 7Z" />
+          <path d="M91 165c31-23 51-12 51-12-8 28-32 33-51 12Z" />
+          <path d="M99 111C72 91 55 102 55 102c8 25 28 28 44 9Z" />
+          <path d="M104 60c-21-17-19-38-19-38 24 1 33 18 19 38Z" />
+          <path d="M106 58c21-19 42-12 42-12-4 23-20 30-42 12Z" />
+        </g>
+      </svg>
+
+      <article
+        class="invitation"
+        id="invitation"
+        aria-labelledby="invitation-title"
+      >
+        <div class="invitation__front">
+          <p class="eyebrow">Một lời hẹn nho nhỏ</p>
+          <h1 id="invitation-title">Gửi cô nương <em>Việt Hà</em></h1>
+          <p class="letter">
+            Thứ Bảy tuần này, anh xin phép “bắt cóc” em đi ngao du, hú hí Đà
+            Nẵng một chút vào buổi tối. Chỉ cần em, một chiếc bụng đói và tâm
+            hồn thật vui — phần còn lại cứ để anh lo.
+          </p>
+          <p class="date">
+            <span class="heart" aria-hidden="true">♥</span> Thứ Bảy · 10.10.2026
+            · Buổi tối
+          </p>
+          <p class="question">Ý em thế nào?</p>
+
+          <div class="actions" id="actions" aria-label="Chọn câu trả lời">
+            <button class="choice choice--no" id="no-button" type="button">
+              Không đồng ý đâu
+            </button>
+            <button class="choice choice--yes" id="yes-button" type="button">
+              Đồng ý nha ♥
+            </button>
+          </div>
+          <p class="hint" id="hint">
+            Psst… có vẻ chỉ có một đáp án đúng thôi đó.
+          </p>
+        </div>
+
+        <section
+          class="success"
+          id="success"
+          aria-labelledby="success-title"
+          aria-hidden="true"
+        >
+          <div>
+            <div class="success__seal" aria-hidden="true">♥</div>
+            <p class="eyebrow">Kèo đã được chốt</p>
+            <h2 id="success-title">Cảm ơn em đã đồng ý!</h2>
+            <p>
+              Cô nương cứ chuẩn bị một tinh thần thật vui nhé. Đúng ngày, đúng
+              giờ, chúng ta lên đường “trinh chiến” Đà Nẵng thôi — kkk!
+            </p>
+            <p class="success__sign">Hẹn em tối Thứ Bảy, 10.10.2026 ♥</p>
+          </div>
+        </section>
+      </article>
+    </main>
+
+    <div class="celebration" id="celebration" aria-hidden="true">
+      <i class="celebration__particle celebration__particle--left"
+        ><span></span
+      ></i>
+      <i class="celebration__particle celebration__particle--left"
+        ><span></span
+      ></i>
+      <i class="celebration__particle celebration__particle--left"
+        ><span></span
+      ></i>
+      <i class="celebration__particle celebration__particle--left"
+        ><span></span
+      ></i>
+      <i class="celebration__particle celebration__particle--left"
+        ><span></span
+      ></i>
+      <i class="celebration__particle celebration__particle--left"
+        ><span></span
+      ></i>
+      <i class="celebration__particle celebration__particle--left"
+        ><span></span
+      ></i>
+      <i class="celebration__particle celebration__particle--left"
+        ><span></span
+      ></i>
+      <i class="celebration__particle celebration__particle--right"
+        ><span></span
+      ></i>
+      <i class="celebration__particle celebration__particle--right"
+        ><span></span
+      ></i>
+      <i class="celebration__particle celebration__particle--right"
+        ><span></span
+      ></i>
+      <i class="celebration__particle celebration__particle--right"
+        ><span></span
+      ></i>
+      <i class="celebration__particle celebration__particle--right"
+        ><span></span
+      ></i>
+      <i class="celebration__particle celebration__particle--right"
+        ><span></span
+      ></i>
+      <i class="celebration__particle celebration__particle--right"
+        ><span></span
+      ></i>
+      <i class="celebration__particle celebration__particle--right"
+        ><span></span
+      ></i>
+      <span class="celebration__balloon"><span></span></span>
+      <span class="celebration__balloon"><span></span></span>
+      <span class="celebration__balloon"><span></span></span>
+      <span class="celebration__balloon"><span></span></span>
+      <span class="celebration__balloon"><span></span></span>
+      <span class="celebration__balloon"><span></span></span>
+    </div>
+
+    <script>
+      const intro = document.querySelector("#intro");
+      const letterPage = document.querySelector("#letter-page");
+      const openLetterButton = document.querySelector("#open-letter");
+      const invitation = document.querySelector("#invitation");
+      const actions = document.querySelector("#actions");
+      const noButton = document.querySelector("#no-button");
+      const yesButton = document.querySelector("#yes-button");
+      const success = document.querySelector("#success");
+      const invitationFront = document.querySelector(".invitation__front");
+      const hint = document.querySelector("#hint");
+      const isTouchDevice = window.matchMedia(
+        "(hover: none), (pointer: coarse)",
+      ).matches;
+
+      let escapeCount = 0;
+      let lastEscapeAt = 0;
+      let isCelebrating = false;
+
+      openLetterButton.addEventListener("click", () => {
+        document.body.classList.add("letter-open");
+        intro.setAttribute("aria-hidden", "true");
+        intro.setAttribute("inert", "");
+        letterPage.removeAttribute("inert");
+        letterPage.setAttribute("aria-hidden", "false");
+        window.setTimeout(() => invitation.focus({ preventScroll: true }), 700);
+      });
+
+      function moveNoButton(pointerX, pointerY) {
+        const now = performance.now();
+        if (now - lastEscapeAt < 150) return;
+        lastEscapeAt = now;
+        escapeCount += 1;
+
+        const arena = actions.getBoundingClientRect();
+        const button = noButton.getBoundingClientRect();
+        const padding = 6;
+        const maxX = Math.max(padding, arena.width - button.width - padding);
+        const maxY = Math.max(padding, arena.height - button.height - padding);
+        const localPointerX = pointerX - arena.left;
+        const localPointerY = pointerY - arena.top;
+
+        let best = { x: padding, y: padding, distance: -1 };
+        for (let index = 0; index < 14; index += 1) {
+          const x = padding + Math.random() * Math.max(0, maxX - padding);
+          const y = padding + Math.random() * Math.max(0, maxY - padding);
+          const centerX = x + button.width / 2;
+          const centerY = y + button.height / 2;
+          const distance = Math.hypot(
+            centerX - localPointerX,
+            centerY - localPointerY,
+          );
+          if (distance > best.distance) best = { x, y, distance };
+        }
+
+        noButton.style.left = `${best.x}px`;
+        noButton.style.top = `${best.y}px`;
+        noButton.style.transform = `scale(var(--no-scale, 1))`;
+
+        if (isTouchDevice) {
+          const scale = Math.max(0.42, 1 - escapeCount * 0.13);
+          noButton.style.setProperty("--no-scale", scale.toFixed(2));
+          hint.textContent =
+            escapeCount < 4
+              ? "Ơ kìa, nút này hơi nhát đó…"
+              : "Thôi mà, nút đồng ý đang chờ em kìa ♥";
+        } else {
+          hint.textContent =
+            escapeCount < 3
+              ? "Suýt nữa thì bắt được rồi…"
+              : "Nút này quyết tâm không để em từ chối đâu ♥";
+        }
+      }
+
+      if (!isTouchDevice) {
+        document.addEventListener("pointermove", (event) => {
+          if (invitation.classList.contains("is-accepted")) return;
+          const bounds = noButton.getBoundingClientRect();
+          const distance = Math.hypot(
+            event.clientX - (bounds.left + bounds.width / 2),
+            event.clientY - (bounds.top + bounds.height / 2),
+          );
+          if (distance < 105) moveNoButton(event.clientX, event.clientY);
+        });
+      }
+
+      noButton.addEventListener("pointerdown", (event) => {
+        event.preventDefault();
+        moveNoButton(event.clientX, event.clientY);
+      });
+
+      noButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        const bounds = noButton.getBoundingClientRect();
+        moveNoButton(
+          bounds.left + bounds.width / 2,
+          bounds.top + bounds.height / 2,
+        );
+      });
+
+      noButton.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          const bounds = noButton.getBoundingClientRect();
+          moveNoButton(
+            bounds.left + bounds.width / 2,
+            bounds.top + bounds.height / 2,
+          );
+        }
+      });
+
+      yesButton.addEventListener("click", () => {
+        if (isCelebrating) return;
+        isCelebrating = true;
+        yesButton.disabled = true;
+        noButton.disabled = true;
+        document.body.classList.add("is-celebrating");
+        invitation.classList.add("is-accepted");
+        invitationFront.setAttribute("aria-hidden", "true");
+        success.setAttribute("aria-hidden", "false");
+        window.setTimeout(() => success.focus({ preventScroll: true }), 650);
+      });
+
+      success.setAttribute("tabindex", "-1");
+      invitation.setAttribute("tabindex", "-1");
+    </script>
+  </body>
+</html>
